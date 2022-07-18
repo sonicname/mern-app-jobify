@@ -1,8 +1,8 @@
 import React from "react";
-import logo from "../assets/images/logo.svg";
 import main from "../assets/images/main.svg";
 import { Wrapper } from "../assets/wrappers/LandingPage.jsx";
 import { Logo } from "../components";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -22,7 +22,9 @@ const Landing = () => {
             magnam natus nobis, praesentium quidem ut voluptas. Blanditiis harum
             perferendis quo reiciendis.
           </p>
-          <button className="btn btn-hero">Login/Register</button>
+          <Link to="/register" className="btn btn-hero">
+            Login/Register
+          </Link>
         </div>
 
         {/* Image */}
