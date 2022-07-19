@@ -1,8 +1,8 @@
-const errorHandlerMiddleWare = (error, req, res, next) => {
-  console.log(error);
+import { StatusCodes } from "http-status-codes";
 
-  res.status(500).json({
-    message: "there was an error",
+const errorHandlerMiddleWare = (error, req, res, next) => {
+  res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+    message: error,
   });
 };
 
