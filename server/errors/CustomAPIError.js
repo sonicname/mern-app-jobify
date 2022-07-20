@@ -19,3 +19,10 @@ export class NotFoundError extends CustomAPIError {
     this.statusCode = StatusCodes.NOT_FOUND;
   }
 }
+
+export class UnauthenticatedError extends CustomAPIError {
+  constructor(message) {
+    super(message);
+    this.statusCode = StatusCodes.UNAUTHORIZED;
+  }
+}
