@@ -129,14 +129,14 @@ export const AppProvider = (props) => {
       const { data } = await authFetch.patch("/auth/update", currentUser);
 
       // no token
-      const { user, location } = data;
+      const { user, location, token } = data;
 
       dispatch({
         type: UPDATE_USER_SUCCESS,
         payload: { user, location, token },
       });
 
-      addUserToLocalStorage({ user, location, token: initialState.token });
+      addUserToLocalStorage({ user, location, token });
     } catch (error) {
       if (error.response.status !== 401) {
         dispatch({
