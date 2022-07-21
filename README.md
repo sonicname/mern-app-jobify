@@ -11,3 +11,6 @@
 
 ## Profile Page
 ![img_3.png](assets/img_3.png)
+
+## Add Jobs Page
+![img.png](assets/add_jobs.png)

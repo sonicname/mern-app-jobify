@@ -1,6 +1,13 @@
 import {
   CLEAR_ALERT,
+  CLEAR_VALUES,
+  CREATE_JOB_BEGIN,
+  CREATE_JOB_ERROR,
+  CREATE_JOB_SUCCESS,
   DISPLAY_ALERT,
+  GET_JOBS_BEGIN,
+  GET_JOBS_SUCCESS,
+  HANDLE_CHANGE,
   LOGOUT_USER,
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
@@ -107,6 +114,71 @@ const reducers = (state, action) => {
         showAlert: true,
         alertType: "danger",
         alertText: action.payload.message,
+      };
+    }
+
+    case HANDLE_CHANGE: {
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+    }
+
+    case CLEAR_VALUES: {
+      return {
+        ...state,
+        isEditing: false,
+        editJobId: "",
+        position: "",
+        company: "",
+        jobLocation: state.userLocation,
+        jobType: "full-time",
+        status: "pending",
+      };
+    }
+
+    case CREATE_JOB_BEGIN: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case CREATE_JOB_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "success",
+        alertText: "New Job Created!",
+      };
+    }
+
+    case CREATE_JOB_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "danger",
+        alertText: action.payload.message,
+      };
+    }
+
+    case GET_JOBS_BEGIN: {
+      return {
+        ...state,
+        isLoading: true,
+        showAlert: false,
+      };
+    }
+
+    case GET_JOBS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        jobs: action.payload.jobs,
+        totalJobs: action.payload.totalJobs,
+        numOfPages: action.payload.numOfPages,
       };
     }
     default:
