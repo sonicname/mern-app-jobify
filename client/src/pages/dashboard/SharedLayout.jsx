@@ -1,8 +1,6 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Wrapper from "../../assets/wrappers/SharedLayout.jsx";
-import Navbar from "../../components/Navbar.jsx";
-import SmallSidebar from "../../components/SmallSidebar.jsx";
-import BigSidebar from "../../components/BigSidebar.jsx";
+import { BigSidebar, Navbar, SmallSidebar } from "../../components/index.jsx";
 
 const SharedLayout = () => {
   return (
