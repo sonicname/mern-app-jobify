@@ -1,9 +1,11 @@
 import {
   CLEAR_ALERT,
   DISPLAY_ALERT,
+  LOGOUT_USER,
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
+  TOGGLE_SIDEBAR,
 } from "./actions.jsx";
 
 const reducers = (state, action) => {
@@ -54,6 +56,23 @@ const reducers = (state, action) => {
         showAlert: true,
         alertType: "danger",
         alertText: action.payload.message,
+      };
+    }
+
+    case TOGGLE_SIDEBAR: {
+      return {
+        ...state,
+        showSidebar: !state.showSidebar,
+      };
+    }
+
+    case LOGOUT_USER: {
+      return {
+        ...state,
+        user: null,
+        token: null,
+        userLocation: "",
+        jobLocation: "",
       };
     }
     default:
