@@ -4,11 +4,16 @@ import {
   CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
   CREATE_JOB_SUCCESS,
+  DELETE_JOB_BEGIN,
   DISPLAY_ALERT,
+  EDIT_JOB_BEGIN,
+  EDIT_JOB_ERROR,
+  EDIT_JOB_SUCCESS,
   GET_JOBS_BEGIN,
   GET_JOBS_SUCCESS,
   HANDLE_CHANGE,
   LOGOUT_USER,
+  SET_EDIT_JOB,
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
@@ -179,6 +184,50 @@ const reducers = (state, action) => {
         jobs: action.payload.jobs,
         totalJobs: action.payload.totalJobs,
         numOfPages: action.payload.numOfPages,
+      };
+    }
+
+    case SET_EDIT_JOB: {
+      const job = state.jobs.find((job) => job._id === action.payload.id);
+      const { _id, position, company, jobLocation, jobType, status } = job;
+
+      return {
+        ...state,
+        isEditing: true,
+        editJobId: _id,
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
+      };
+    }
+
+    case DELETE_JOB_BEGIN: {
+      return { ...state, isLoading: true };
+    }
+
+    case EDIT_JOB_BEGIN: {
+      return { ...state, isLoading: true };
+    }
+
+    case EDIT_JOB_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "success",
+        alertText: "Job Updated!",
+      };
+    }
+
+    case EDIT_JOB_ERROR: {
+      return {
+        ...state,
+        isLoading: false,
+        showAlert: true,
+        alertType: "danger",
+        alertText: action.payload.message,
       };
     }
     default:

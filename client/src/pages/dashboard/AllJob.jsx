@@ -1,7 +1,11 @@
-import React from "react";
+import { JobsContainer } from "../../components/index.jsx";
 
 const AllJob = () => {
-  return <div>All Job</div>;
+  return (
+    <>
+      <JobsContainer />
+    </>
+  );
 };
 
 export default AllJob;

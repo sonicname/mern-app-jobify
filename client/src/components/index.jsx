@@ -6,6 +6,10 @@ import Navbar from "./Navbar.jsx";
 import SmallSidebar from "./SmallSidebar.jsx";
 import NavLinks from "./NavLinks.jsx";
 import FormRowSelect from "./FormRowSelect.jsx";
+import Job from "./Job.jsx";
+import JobsContainer from "./JobsContainer.jsx";
+import Loading from "./Loading.jsx";
+import JobInfo from "./JobInfo.jsx";
 
 export {
   Logo,
@@ -16,4 +20,8 @@ export {
   NavLinks,
   SmallSidebar,
   FormRowSelect,
+  Loading,
+  Job,
+  JobInfo,
+  JobsContainer,
 };
