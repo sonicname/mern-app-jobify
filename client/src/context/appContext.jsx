@@ -25,6 +25,9 @@ import {
   EDIT_JOB_BEGIN,
   EDIT_JOB_SUCCESS,
   EDIT_JOB_ERROR,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
+  CHANGE_PAGE,
 } from "./actions";
 
 const token = localStorage.getItem("token");
@@ -45,6 +48,13 @@ const initialState = {
   jobType: "full-time",
   statusOptions: ["pending", "interview", "declined"],
   status: "pending",
+  stats: {},
+  monthlyApplications: [],
+  search: "",
+  searchStatus: "all",
+  searchType: "all",
+  sort: "latest",
+  sortOptions: ["latest", "oldest", "a-z", "z-a"],
 };
 
 const AppContext = createContext(null);
@@ -164,6 +174,10 @@ export const AppProvider = (props) => {
     clearAlert();
   };
 
+  const clearFilters = () => {
+    dispatch({ type: CLEAR_FILTERS });
+  };
+
   const handleChange = ({ name, value }) => {
     dispatch({
       type: HANDLE_CHANGE,
@@ -204,8 +218,14 @@ export const AppProvider = (props) => {
   };
 
   const getJobs = async () => {
-    let url = `/job`;
+    // will add page later
+    const { page, search, searchStatus, searchType, sort } = state;
 
+    let url = `/job?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`;
+
+    if (search) {
+      url = url + `&search=${search}`;
+    }
     dispatch({ type: GET_JOBS_BEGIN });
     try {
       const { data } = await authFetch(url);
@@ -219,8 +239,7 @@ export const AppProvider = (props) => {
         },
       });
     } catch (error) {
-      console.log(error.response);
-      logoutUser();
+      // logoutUser()
     }
     clearAlert();
   };
@@ -265,6 +284,29 @@ export const AppProvider = (props) => {
     }
   };
 
+  const showStats = async () => {
+    dispatch({ type: SHOW_STATS_BEGIN });
+    try {
+      const { data } = await authFetch("/jobs/stats");
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          stats: data.defaultStats,
+          monthlyApplications: data.monthlyApplications,
+        },
+      });
+    } catch (error) {
+      console.log(error.response);
+      // logoutUser()
+    }
+
+    clearAlert();
+  };
+
+  const changePage = (page) => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
+  };
+
   useEffect(() => {
     getJobs();
   }, []);
@@ -285,6 +327,9 @@ export const AppProvider = (props) => {
         setEditJob,
         editJob,
         deleteJob,
+        showStats,
+        clearFilters,
+        changePage,
       }}
       {...props}
     />

@@ -1,5 +1,7 @@
 import {
+  CHANGE_PAGE,
   CLEAR_ALERT,
+  CLEAR_FILTERS,
   CLEAR_VALUES,
   CREATE_JOB_BEGIN,
   CREATE_JOB_ERROR,
@@ -17,6 +19,8 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_ERROR,
   SETUP_USER_SUCCESS,
+  SHOW_STATS_BEGIN,
+  SHOW_STATS_SUCCESS,
   TOGGLE_SIDEBAR,
   UPDATE_USER_BEGIN,
   UPDATE_USER_ERROR,
@@ -123,10 +127,7 @@ const reducers = (state, action) => {
     }
 
     case HANDLE_CHANGE: {
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value,
-      };
+      return { ...state, page: 1, [action.payload.name]: action.payload.value };
     }
 
     case CLEAR_VALUES: {
@@ -228,6 +229,36 @@ const reducers = (state, action) => {
         showAlert: true,
         alertType: "danger",
         alertText: action.payload.message,
+      };
+    }
+
+    case SHOW_STATS_BEGIN: {
+      return { ...state, isLoading: true, showAlert: false };
+    }
+
+    case SHOW_STATS_SUCCESS: {
+      return {
+        ...state,
+        isLoading: false,
+        stats: action.payload.stats,
+        monthlyApplications: action.payload.monthlyApplications,
+      };
+    }
+
+    case CLEAR_FILTERS: {
+      return {
+        ...state,
+        search: "",
+        searchStatus: "all",
+        searchType: "all",
+        sort: "latest",
+      };
+    }
+
+    case CHANGE_PAGE: {
+      return {
+        ...state,
+        page: action.payload.page,
       };
     }
     default:

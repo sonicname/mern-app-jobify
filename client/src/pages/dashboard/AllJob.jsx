@@ -1,8 +1,9 @@
-import { JobsContainer } from "../../components/index.jsx";
+import { JobsContainer, SearchContainer } from "../../components/index.jsx";
 
 const AllJob = () => {
   return (
     <>
+      <SearchContainer />
       <JobsContainer />
     </>
   );
