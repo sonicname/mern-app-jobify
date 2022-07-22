@@ -42,12 +42,20 @@ const initialState = {
   user: user ? JSON.parse(user) : null,
   token: token,
   userLocation: userLocation || "",
-  jobLocation: userLocation || "",
   showSidebar: false,
+  isEditing: false,
+  editJobId: "",
+  position: "",
+  company: "",
+  jobLocation: userLocation || "",
   jobTypeOptions: ["full-time", "part-time", "remote", "internship"],
   jobType: "full-time",
-  statusOptions: ["pending", "interview", "declined"],
+  statusOptions: ["interview", "declined", "pending"],
   status: "pending",
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
   stats: {},
   monthlyApplications: [],
   search: "",
@@ -287,7 +295,7 @@ export const AppProvider = (props) => {
   const showStats = async () => {
     dispatch({ type: SHOW_STATS_BEGIN });
     try {
-      const { data } = await authFetch("/jobs/stats");
+      const { data } = await authFetch.post("/job/stats");
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
@@ -296,10 +304,8 @@ export const AppProvider = (props) => {
         },
       });
     } catch (error) {
-      console.log(error.response);
-      // logoutUser()
+      logoutUser();
     }
-
     clearAlert();
   };
 
