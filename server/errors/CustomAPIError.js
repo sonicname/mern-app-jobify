@@ -1,28 +1,28 @@
-import { StatusCodes } from "http-status-codes";
+import { StatusCodes } from 'http-status-codes';
 
 class CustomAPIError extends Error {
-  constructor(message) {
-    super(message);
-  }
+	constructor(message) {
+		super(message);
+	}
 }
 
 export class BadRequestError extends CustomAPIError {
-  constructor(message) {
-    super(message);
-    this.statusCode = StatusCodes.BAD_REQUEST;
-  }
+	constructor(message) {
+		super(message);
+		this.statusCode = StatusCodes.BAD_REQUEST;
+	}
 }
 
 export class NotFoundError extends CustomAPIError {
-  constructor(message) {
-    super(message);
-    this.statusCode = StatusCodes.NOT_FOUND;
-  }
+	constructor(message) {
+		super(message);
+		this.statusCode = StatusCodes.NOT_FOUND;
+	}
 }
 
 export class UnauthenticatedError extends CustomAPIError {
-  constructor(message) {
-    super(message);
-    this.statusCode = StatusCodes.UNAUTHORIZED;
-  }
+	constructor(message) {
+		super(message);
+		this.statusCode = StatusCodes.UNAUTHORIZED;
+	}
 }
