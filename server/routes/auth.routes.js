@@ -4,7 +4,6 @@ const router = express.Router();
 import { register, updateUser, login } from '../controllers/auth.controller.js';
 import auth from '../middlewares/auth.js';
 import rateLimiter from 'express-rate-limit';
-import { max } from 'moment';
 
 const apiLimiter = rateLimiter({
 	windowMs: 15 * 60 * 1000, // 15m
